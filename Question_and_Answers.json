@@ -1,0 +1,123 @@
+{
+    "questions_and_answers": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hi",
+                "How are you",
+                "Is anyone there?",
+                "Hello",
+                "Good day"
+            ],
+            "responses": [
+                "Hello, thanks for visiting",
+                "Good to see you again",
+                "Hi there, how can I help?"
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye",
+                "See you later",
+                "Goodbye"
+            ],
+            "responses": [
+                "See you later, thanks for visiting",
+                "Have a nice day",
+                "Bye! Come back again soon."
+            ]
+        },
+        {
+            "tag": "age",
+            "patterns": [
+                "How old",
+                "How old is your platform",
+                "what is your age"
+            ],
+            "responses": [
+                "I am New born",
+                "I am 1 day old",
+                "I am 1 day old"
+            ]
+        },
+        {
+            "tag": "name",
+            "patterns": [
+                "What is your name",
+                "what should I call you",
+                "whats your name"
+            ],
+            "responses": [
+                "You can call me Chatbot.",
+                "I'm Chatbot!",
+                "I'm Chatbot, your virtual assistant."
+            ]
+        },
+        {
+            "tag": "thanks",
+            "patterns": [
+                "Thanks",
+                "Thank you",
+                "That's helpful"
+            ],
+            "responses": [
+                "Happy to help!",
+                "Any time!",
+                "My pleasure"
+            ]
+        },
+        {
+            "tag": "capabilities",
+            "patterns": [
+                "What can you do?",
+                "Tell me about your capabilities",
+                "How can you assist me?"
+            ],
+            "responses": [
+                "I can answer your questions and engage in simple conversations.",
+                "My main purpose is to assist and provide information to the best of my abilities."
+            ]
+        },
+        {
+            "tag": "purpose",
+            "patterns": [
+                "What is your purpose?",
+                "Why were you created?",
+                "Tell me about your goal"
+            ],
+            "responses": [
+                "I was created to be a helpful virtual assistant, answering your queries and engaging with you.",
+                "My goal is to assist you by providing information and answering any questions you may have.",
+                "I exist to make your life easier by offering quick and helpful responses to your queries.",
+                "The purpose of my creation is to serve as your virtual companion, ready to help whenever you need assistance."
+            ]
+        },        
+        {
+            "tag": "hours",
+            "patterns": [
+                "What hours are you open?",
+                "What are your hours?",
+                "When are you open?"
+            ],
+            "responses": [
+                "We're open 24 hours",
+                "Our hours are 24 hours in your service"
+            ]
+        },
+        {
+            "tag": "farewell",
+            "patterns": [
+                "Goodbye",
+                "See you later",
+                "Bye for now"
+            ],
+            "responses": [
+                "Goodbye! If you have more questions in the future, feel free to ask. Take care!",
+                "See you later, thanks for visiting",
+                "Have a nice day",
+                "Bye! Come back again soon."
+            ]
+        }
+    ]
+}
