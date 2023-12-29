@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<title>chatbot</title>
+</head>
+
+<body>
+	<h1>ChatBot</h1>
+	<div>
+		<div id="chatbox">
+			<p class="botText"><span>Hi! I'm your Chatterbot.</span></p>
+		</div>
+		<div class="userInput">
+			<input id="textInput" type="text" name="msg" placeholder="Message">
+			<input id="buttonInput" type="submit" value="Send">
+		</div>
+		<script>
+			function getBotResponse() {
+				var rawText = $("#textInput").val();
+				var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+				$("#textInput").val("");
+				$("#chatbox").append(userHtml);
+				document.getElementById('userInput');
+				$.get("/get", { msg: rawText }).done(function(data) {
+					var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+					$("#chatbox").append(botHtml);
+					document.getElementById('userInput');
+				});
+			}
+			$("#textInput").keypress(function (e) {
+				if (e.which == 13) {
+					getBotResponse();
+				}
+			});
+			$("#buttonInput").click(function () {
+				getBotResponse();
+			});
+		</script>
+	</div>
+</body>
+
+</html>

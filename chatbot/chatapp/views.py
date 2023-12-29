@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from django.shortcuts import render
 import json
 import pickle
 import random
@@ -6,30 +6,28 @@ import numpy as np
 import nltk
 from nltk.stem import WordNetLemmatizer
 from keras.models import load_model
+from django.http import HttpResponse
+from django.template import loader
+lemmatizer = WordNetLemmatizer()
+# Load the Q/A file
+QandA_file = json.loads(open('./../Question_and_Answers.json').read())
 
-app = Flask(__name__)
+# Load the pickle files
+words = pickle.load(open('./../words.pkl','rb'))
+classes = pickle.load(open('./../classes.pkl','rb'))
 
-@app.route('/')
-def index():
-    return render_template('chat.html')
+    # Load the model
+model = load_model('./../chatbot_model.h5')
 
-@app.route('/get')
-def chat():
-    userText = request.args.get('msg')
+def index(request):
+    template = loader.get_template('chat.html')
+    return HttpResponse(template.render({}, request))
+
+def get(request):
+    userText = request.GET.get('msg')
     return get_chat_response(userText)
 
 def get_chat_response(userText):
-    lemmatizer = WordNetLemmatizer()
-    # Load the Q/A file
-    QandA_file = json.loads(open('./../../Question_and_Answers.json').read())
-
-    # Load the pickle files
-    words = pickle.load(open('words.pkl','rb'))
-    classes = pickle.load(open('classes.pkl','rb'))
-
-    # Load the model
-    model = load_model('chatbot_model.h5')
-
     def clean_up_sentence(sentence):
         # Tokenize the pattern
         sentence_words = nltk.word_tokenize(sentence)
@@ -65,7 +63,7 @@ def get_chat_response(userText):
         
         return return_list
 
-    def get_response(intents_list, intents_json):
+    def get_respons(intents_list, intents_json):
         tag = intents_list[0]['intent']
         list_of_intents = intents_json['questions_and_answers']
         for i in list_of_intents:
@@ -75,8 +73,5 @@ def get_chat_response(userText):
         return result
     
     ints = predict_class(userText)
-    res = get_response(ints, QandA_file)
+    res = get_respons(ints, QandA_file)
     return res
-
-if __name__ == "__main__":
-    app.run(debug=True)
