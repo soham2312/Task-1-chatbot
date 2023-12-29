@@ -6,7 +6,7 @@ import numpy as np
 import nltk
 from nltk.stem import WordNetLemmatizer
 from keras.models import load_model
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 lemmatizer = WordNetLemmatizer()
 # Load the Q/A file
@@ -23,9 +23,13 @@ def index(request):
     template = loader.get_template('chat.html')
     return HttpResponse(template.render({}, request))
 
-def get(request):
-    userText = request.GET.get('msg')
-    return get_chat_response(userText)
+def get(request,method='GET'):
+    if request.method == 'GET':
+        user_text = request.GET.get('msg', '')
+        bot_response = get_chat_response(user_text)
+        return JsonResponse({'response': bot_response})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
 
 def get_chat_response(userText):
     def clean_up_sentence(sentence):
@@ -63,7 +67,7 @@ def get_chat_response(userText):
         
         return return_list
 
-    def get_respons(intents_list, intents_json):
+    def get_response(intents_list, intents_json):
         tag = intents_list[0]['intent']
         list_of_intents = intents_json['questions_and_answers']
         for i in list_of_intents:
@@ -73,5 +77,5 @@ def get_chat_response(userText):
         return result
     
     ints = predict_class(userText)
-    res = get_respons(ints, QandA_file)
+    res = get_response(ints, QandA_file)
     return res

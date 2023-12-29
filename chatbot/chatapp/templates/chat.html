@@ -24,11 +24,12 @@
 				var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
 				$("#textInput").val("");
 				$("#chatbox").append(userHtml);
-				document.getElementById('userInput');
+				// document.getElementById('userInput');
 				$.get("/get", { msg: rawText }).done(function(data) {
+					data=data['response']
 					var botHtml = '<p class="botText"><span>' + data + '</span></p>';
 					$("#chatbox").append(botHtml);
-					document.getElementById('userInput');
+					// document.getElementById('userInput');
 				});
 			}
 			$("#textInput").keypress(function (e) {
