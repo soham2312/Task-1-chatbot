@@ -6,6 +6,75 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<title>chatbot</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f4f4f4;
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+		}
+
+		#chatbox {
+			max-width: 90%;
+			max-height: 70vh;
+			overflow-y: scroll;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+			/* Add border-radius for a smoother look */
+		}
+
+		.botText,
+		.userText {
+			margin: 10px 0;
+			padding: 10px;
+			border-radius: 8px;
+		}
+
+		.botText {
+			background-color: #e0e0e0;
+		}
+
+		.userText {
+			background-color: #c3e6cb;
+			text-align: right;
+		}
+
+		.userInput {
+			max-width: 90%;
+			margin: 20px auto;
+			display: flex;
+		}
+
+		#textInput {
+			flex: 1;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		#buttonInput {
+			padding: 10px;
+			margin-left: 10px;
+			background-color: #28a745;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		/* Style the submit button on hover for better user feedback */
+		#buttonInput:hover {
+			background-color: #218838;
+		}
+	</style>
 </head>
 
 <body>
@@ -25,11 +94,13 @@
 				$("#textInput").val("");
 				$("#chatbox").append(userHtml);
 				// document.getElementById('userInput');
-				$.get("/get", { msg: rawText }).done(function(data) {
-					data=data['response']
+				$.get("/get", { msg: rawText }).done(function (data) {
+					data = data['response']
 					var botHtml = '<p class="botText"><span>' + data + '</span></p>';
 					$("#chatbox").append(botHtml);
-					// document.getElementById('userInput');
+					var chatbox = document.getElementById("chatbox");
+					chatbox.scrollTop = chatbox.scrollHeight;
+
 				});
 			}
 			$("#textInput").keypress(function (e) {
