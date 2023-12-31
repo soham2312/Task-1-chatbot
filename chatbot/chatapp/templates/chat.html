@@ -28,7 +28,11 @@
 			background-color: #fff;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 			border-radius: 10px;
-			/* Add border-radius for a smoother look */
+			min-height: 70vh;
+			height: auto;
+			display: flex;
+			flex-direction: column-reverse;
+			/* New: reverse the flex direction */
 		}
 
 		.botText,
@@ -70,7 +74,6 @@
 			cursor: pointer;
 		}
 
-		/* Style the submit button on hover for better user feedback */
 		#buttonInput:hover {
 			background-color: #218838;
 		}
@@ -78,41 +81,40 @@
 </head>
 
 <body>
-	<h1>ChatBot</h1>
-	<div>
-		<div id="chatbox">
-			<p class="botText"><span>Hi! I'm your Chatterbot.</span></p>
-		</div>
-		<div class="userInput">
-			<input id="textInput" type="text" name="msg" placeholder="Message">
-			<input id="buttonInput" type="submit" value="Send">
-		</div>
-		<script>
-			function getBotResponse() {
-				var rawText = $("#textInput").val();
-				var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
-				$("#textInput").val("");
-				$("#chatbox").append(userHtml);
-				// document.getElementById('userInput');
-				$.get("/get", { msg: rawText }).done(function (data) {
-					data = data['response']
-					var botHtml = '<p class="botText"><span>' + data + '</span></p>';
-					$("#chatbox").append(botHtml);
-					var chatbox = document.getElementById("chatbox");
-					chatbox.scrollTop = chatbox.scrollHeight;
-
-				});
-			}
-			$("#textInput").keypress(function (e) {
-				if (e.which == 13) {
-					getBotResponse();
-				}
-			});
-			$("#buttonInput").click(function () {
-				getBotResponse();
-			});
-		</script>
-	</div>
+    <h1>ChatBot</h1>
+    <div>
+        <div id="chatbox">
+            <p class="botText"><span>Hi! I'm your Chatterbot.</span></p>
+        </div>
+        <div class="userInput">
+            <input id="textInput" type="text" name="msg" placeholder="Message">
+            <input id="buttonInput" type="submit" value="Send">
+        </div>
+        <script>
+            function getBotResponse() {
+                var rawText = $("#textInput").val();
+                var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+                $("#textInput").val("");
+                // Append new messages at the beginning of the chatbox
+                $("#chatbox").prepend(userHtml);
+                // document.getElementById('userInput');
+                $.get("/get", { msg: rawText }).done(function (data) {
+                    data = data['response']
+                    var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+                    // Append new bot messages at the beginning of the chatbox
+                    $("#chatbox").prepend(botHtml);
+                });
+            }
+            $("#textInput").keypress(function (e) {
+                if (e.which == 13) {
+                    getBotResponse();
+                }
+            });
+            $("#buttonInput").click(function () {
+                getBotResponse();
+            });
+        </script>
+    </div>
 </body>
 
 </html>
