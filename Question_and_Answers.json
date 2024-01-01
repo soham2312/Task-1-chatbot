@@ -118,6 +118,42 @@
                 "Have a nice day",
                 "Bye! Come back again soon."
             ]
+        },
+        {
+            "tag": "weather",
+            "patterns": [
+                "How's the weather today?",
+                "Tell me about today's weather",
+                "What's the temperature like?"
+            ],
+            "responses": [
+                "I'm sorry, I don't have real-time weather information. You might want to check a weather website or app.",
+                "I don't have live weather updates, but I can assist you with other information."
+            ]
+        },
+        {
+            "tag": "technology",
+            "patterns": [
+                "What's the latest in technology?",
+                "Tell me about recent tech developments",
+                "Any interesting tech news?"
+            ],
+            "responses": [
+                "I'm not updated on real-time news, but you can check reliable tech news websites for the latest updates.",
+                "I don't have current news, but I can help answer tech-related questions you might have."
+            ]
+        },
+        {
+            "tag": "favorite_movie",
+            "patterns": [
+                "What's your favorite movie?",
+                "Do you watch movies?",
+                "Any movie recommendations?"
+            ],
+            "responses": [
+                "I don't watch movies, but I can help you find information about them. What genre are you interested in?",
+                "As a virtual assistant, I don't have personal preferences, but I can suggest popular movies in various genres if you'd like."
+            ]
         }
     ]
 }
