@@ -4,9 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Include jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>chatbot</title>
+	<title>ChatBot</title>
 	<style>
+		/* Styling for the page */
 		body {
 			font-family: 'Arial', sans-serif;
 			margin: 0;
@@ -19,6 +21,7 @@
 			color: #333;
 		}
 
+		/* Styling for the chatbox container */
 		#chatbox {
 			max-width: 90%;
 			max-height: 70vh;
@@ -31,10 +34,10 @@
 			min-height: 70vh;
 			height: auto;
 			display: flex;
-			flex-direction: column-reverse;
-			/* New: reverse the flex direction */
+			flex-direction: column-reverse; /* New: reverse the flex direction */
 		}
 
+		/* Styling for bot and user messages */
 		.botText,
 		.userText {
 			margin: 10px 0;
@@ -51,6 +54,7 @@
 			text-align: right;
 		}
 
+		/* Styling for user input section */
 		.userInput {
 			max-width: 90%;
 			margin: 20px auto;
@@ -83,33 +87,46 @@
 <body>
     <h1>ChatBot</h1>
     <div>
+        <!-- Chatbox container -->
         <div id="chatbox">
+            <!-- Initial bot message -->
             <p class="botText"><span>Hi! I'm your Chatterbot.</span></p>
         </div>
+        <!-- User input section -->
         <div class="userInput">
+            <!-- Input field for user messages -->
             <input id="textInput" type="text" name="msg" placeholder="Message">
+            <!-- Button to send user messages -->
             <input id="buttonInput" type="submit" value="Send">
         </div>
         <script>
+            // JavaScript code for handling user input and getting bot responses
             function getBotResponse() {
+                // Get raw user input
                 var rawText = $("#textInput").val();
+                // Create HTML for user message
                 var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+                // Clear the input field
                 $("#textInput").val("");
-                // Append new messages at the beginning of the chatbox
+                // Append new user messages at the beginning of the chatbox
                 $("#chatbox").prepend(userHtml);
-                // document.getElementById('userInput');
+                // Send user input to the server and get a bot response
                 $.get("/get", { msg: rawText }).done(function (data) {
+                    // Extract response from the data
                     data = data['response']
+                    // Create HTML for bot message
                     var botHtml = '<p class="botText"><span>' + data + '</span></p>';
                     // Append new bot messages at the beginning of the chatbox
                     $("#chatbox").prepend(botHtml);
                 });
             }
+            // Trigger getBotResponse function on Enter key press
             $("#textInput").keypress(function (e) {
                 if (e.which == 13) {
                     getBotResponse();
                 }
             });
+            // Trigger getBotResponse function on button click
             $("#buttonInput").click(function () {
                 getBotResponse();
             });
